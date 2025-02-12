@@ -16,7 +16,12 @@ function GameBoard(){
         board[row][column].addMark(player);
     }
 
-    return {getBoard, selectSquare};
+    const printBoard = ()=>{
+        const boardWithValues = board.map((row) => row.map((cell)=> cell.getValue()));
+        console.log(boardWithValues);
+    }
+
+    return {getBoard, selectSquare, printBoard};
     
 }
 
