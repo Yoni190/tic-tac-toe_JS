@@ -62,4 +62,9 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
         board.printBoard();
         console.log(`${getActivePlayer().name}'s turn`);
     }
+
+    const playRound = (row, column) => {
+        console.log(`Dropping ${getActivePlayer().name}'s token...`);
+        board.selectSquare(row, column, getActivePlayer().token);
+    }
 }
