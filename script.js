@@ -12,11 +12,11 @@ function GameBoard(){
 
     const getBoard = ()=> board;
 
-    // const selectSquare = (row, column, player) => {
+    const selectSquare = (row, column, player) => {
+        board[row][column].addMark(player);
+    }
 
-    // }
-
-    return {getBoard};
+    return {getBoard, selectSquare};
     
 }
 
@@ -31,9 +31,17 @@ function Square(){
     return {addMark, getValue};
 }
 
-function GameController(){
+function GameController(p1Name = "Player 1", p2Name = "Player 2"){
+    const board = GameBoard();
 
+    const players = [
+        {
+            name: p1Name,
+            token: 1
+        },
+        {
+            name: p2Name,
+            token: 2
+        }
+    ]
 }
-
-const gb = GameBoard();
-console.log(gb.getBoard());
