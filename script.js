@@ -13,6 +13,9 @@ function GameBoard(){
     const getBoard = ()=> board;
 
     const selectSquare = (row, column, player) => {
+        if(board[row][column].getValue() != 0){
+            return;
+        }
         board[row][column].addMark(player);
     }
 
@@ -31,10 +34,11 @@ function Square(){
 
     const addMark = (player) =>{value = player};
 
-    const getValue = ()=>{value};
+    const getValue = ()=> value;
 
     return {addMark, getValue};
 }
+
 
 function GameController(p1Name = "Player 1", p2Name = "Player 2"){
     const board = GameBoard();
@@ -64,10 +68,18 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
     }
 
     const playRound = (row, column) => {
-        console.log(`Dropping ${getActivePlayer().name}'s token...`);
+        console.log(`Putting ${getActivePlayer().name}'s mark...`);
         board.selectSquare(row, column, getActivePlayer().token);
 
         switchPlayerTurn();
         printNewRound();
     }
+
+    printNewRound();
+
+    return{
+        playRound, getActivePlayer
+    }
 }
+
+const game = GameController();
