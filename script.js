@@ -44,4 +44,10 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
             token: 2
         }
     ]
+
+    let activePlayer = players[0];
+    
+    const switchPlayerTurn = () =>{
+        activePlayer = activePlayer === players[0] ? players[1] : players[0];
+    }
 }
