@@ -9,6 +9,8 @@ function GameBoard(){
             board[i].push(Square());
         }
     }
+
+    const getBoard = ()=> board;
     
 }
 
