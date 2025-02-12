@@ -11,6 +11,12 @@ function GameBoard(){
     }
 
     const getBoard = ()=> board;
+
+    // const selectSquare = (row, column, player) => {
+
+    // }
+
+    return {getBoard};
     
 }
 
@@ -28,3 +34,6 @@ function Square(){
 function GameController(){
 
 }
+
+const gb = GameBoard();
+console.log(gb.getBoard());
