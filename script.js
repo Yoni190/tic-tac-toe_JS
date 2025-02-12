@@ -57,4 +57,9 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
     }
 
     const getActivePlayer = ()=> activePlayer;
+
+    const printNewRound = () => {
+        board.printBoard();
+        console.log(`${getActivePlayer().name}'s turn`);
+    }
 }
