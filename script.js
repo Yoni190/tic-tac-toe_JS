@@ -32,13 +32,28 @@ function GameBoard(){
         //     return;
         // }
         if(square > 0 && square < 4){
-            board[0][square-1].addMark(player);
+            const row = 0;
+            const column = square - 1;
+            if(board[row][column].getValue() == 'X' || board[row][column].getValue() == 'O'){
+                return;
+            }
+            board[row][column].addMark(player);
         }
         else if(square > 3 && square < 7){
-            board[1][square-4].addMark(player);
+            const row = 1;
+            const column = square - 4;
+            if(board[row][column].getValue() == 'X' || board[row][column].getValue() == 'O'){
+                return;
+            }
+            board[row][column].addMark(player);
         }
         else{
-            board[2][square-7].addMark(player);
+            const row = 2;
+            const column = square - 7;
+            if(board[row][column].getValue() == 'X' || board[row][column].getValue() == 'O'){
+                return;
+            }
+            board[row][column].addMark(player);
         }
     }
 
