@@ -112,6 +112,12 @@ const Game = (() => {
         }
     }
 
+    const checkTie = () => {
+        if(choices.flat().length == 9){
+            return true;
+        }
+    }
+
     const printNewRound = () => {
         board.printBoard();
         console.log(`${getActivePlayer().name}'s turn`);
@@ -123,6 +129,10 @@ const Game = (() => {
 
         if(checkWin(square)){
             console.log(`The winner is ${getActivePlayer().name}`)
+            return;
+        }
+        else if(checkTie()){
+            console.log("It's a tie!")
             return;
         }
         switchPlayerTurn();
