@@ -3,20 +3,43 @@ function GameBoard(){
     const rows = 3;
     const columns = 3;
 
+    // for(let i=0; i<rows; i++){
+    //     board[i] = [];
+    //     for(let j=0; j<columns; j++){
+    //         board[i].push(Square());
+    //     }
+    // }
+
     for(let i=0; i<rows; i++){
         board[i] = [];
         for(let j=0; j<columns; j++){
-            board[i].push(Square());
+            if(i == 1){
+                board[i].push(Square(j+4));
+            }
+            else if(i == 2){
+                board[i].push(Square(j+7));
+            }
+            else{
+                board[i].push(Square(j+1));
+            }
         }
     }
 
     const getBoard = ()=> board;
 
-    const selectSquare = (row, column, player) => {
-        if(board[row][column].getValue() != 0){
-            return;
+    const selectSquare = (square, player) => {
+        // if(board[row][column].getValue() != 0){
+        //     return;
+        // }
+        if(square > 0 && square < 4){
+            board[0][square-1].addMark(player);
         }
-        board[row][column].addMark(player);
+        else if(square > 3 && square < 7){
+            board[1][square-4].addMark(player);
+        }
+        else{
+            board[2][square-7].addMark(player);
+        }
     }
 
     const printBoard = ()=>{
@@ -29,8 +52,8 @@ function GameBoard(){
 }
 
 
-function Square(){
-    let value = 0;
+function Square(num){
+    let value = num;
 
     const addMark = (player) =>{value = player};
 
@@ -46,11 +69,11 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
     const players = [
         {
             name: p1Name,
-            token: 1
+            token: 'X'
         },
         {
             name: p2Name,
-            token: 2
+            token: 'O'
         }
     ]
 
@@ -62,14 +85,18 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
 
     const getActivePlayer = ()=> activePlayer;
 
+    const checkWin = () => {
+        
+    }
+
     const printNewRound = () => {
         board.printBoard();
         console.log(`${getActivePlayer().name}'s turn`);
     }
 
-    const playRound = (row, column) => {
+    const playRound = (square) => {
         console.log(`Putting ${getActivePlayer().name}'s mark...`);
-        board.selectSquare(row, column, getActivePlayer().token);
+        board.selectSquare(square, getActivePlayer().token);
 
         switchPlayerTurn();
         printNewRound();
