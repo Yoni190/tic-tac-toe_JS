@@ -130,6 +130,7 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
 
         if(checkWin(square)){
             console.log(`The winner is ${getActivePlayer().name}`)
+            return;
         }
         switchPlayerTurn();
         printNewRound();
