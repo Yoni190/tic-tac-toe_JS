@@ -99,17 +99,24 @@ const Game = (() => {
         const winPatterns = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]];
         
         if(getActivePlayer().token == 'X'){
-            choices[0].push(square);
+            if(!choices[0].includes(square)){
+                choices[0].push(square);
+            }
+
             if(winPatterns.some((pattern)=>pattern.every((item)=>choices[0].includes(item)))){
                 return true
             }
         }
         else{
-            choices[1].push(square);
+            if(!choices[1].includes(square)){
+                choices[1].push(square);
+            }
+            
             if(winPatterns.some((pattern)=>pattern.every((item)=>choices[1].includes(item)))){
                 return true
             }
         }
+        console.log(choices)
     }
 
     const checkTie = () => {
