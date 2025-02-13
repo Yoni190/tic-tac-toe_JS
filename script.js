@@ -78,7 +78,7 @@ function Square(num){
 }
 
 
-function GameController(p1Name = "Player 1", p2Name = "Player 2"){
+const GameController = (function (p1Name = "Player 1", p2Name = "Player 2"){
     const board = GameBoard();
     const choices = [[], []];
 
@@ -141,6 +141,4 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
     return{
         playRound, getActivePlayer
     }
-}
-
-const game = GameController();
+})();
