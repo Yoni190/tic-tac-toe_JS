@@ -80,6 +80,7 @@ function Square(num){
 
 function GameController(p1Name = "Player 1", p2Name = "Player 2"){
     const board = GameBoard();
+    const choices = [[], []];
 
     const players = [
         {
@@ -100,8 +101,22 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
 
     const getActivePlayer = ()=> activePlayer;
 
-    const checkWin = () => {
+    const checkWin = (square) => {
+
+        const winPatterns = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]];
         
+        if(getActivePlayer().token == 'X'){
+            choices[0].push(square);
+            if(choices[0].length >= 3 && winPatterns.some((pattern)=>pattern.every((item)=>choices[0].includes(item)))){
+                return true
+            }
+        }
+        else{
+            choices[1].push(square);
+            if(choices[1].length >= 3 && winPatterns.some((pattern)=>pattern.every((item)=>choices[1].includes(item)))){
+                return true
+            }
+        }
     }
 
     const printNewRound = () => {
@@ -113,6 +128,9 @@ function GameController(p1Name = "Player 1", p2Name = "Player 2"){
         console.log(`Putting ${getActivePlayer().name}'s mark...`);
         board.selectSquare(square, getActivePlayer().token);
 
+        if(checkWin(square)){
+            console.log(`The winner is ${getActivePlayer().name}`)
+        }
         switchPlayerTurn();
         printNewRound();
     }
