@@ -3,24 +3,20 @@ function GameBoard(){
     const rows = 3;
     const columns = 3;
 
-    // for(let i=0; i<rows; i++){
-    //     board[i] = [];
-    //     for(let j=0; j<columns; j++){
-    //         board[i].push(Square());
-    //     }
-    // }
-
     for(let i=0; i<rows; i++){
         board[i] = [];
         for(let j=0; j<columns; j++){
-            if(i == 1){
+            if(i == 0){
+                //Numbers from 1-3 for row 1
+                board[i].push(Square(j+1));
+            }
+            else if(i == 1){
+                //Numbers from 4-6 for row 2
                 board[i].push(Square(j+4));
             }
-            else if(i == 2){
-                board[i].push(Square(j+7));
-            }
             else{
-                board[i].push(Square(j+1));
+                //Numbers from 7-9 for row 3
+                board[i].push(Square(j+7));
             }
         }
     }
@@ -28,9 +24,6 @@ function GameBoard(){
     const getBoard = ()=> board;
 
     const selectSquare = (square, player) => {
-        // if(board[row][column].getValue() != 0){
-        //     return;
-        // }
         if(square > 0 && square < 4){
             const row = 0;
             const column = square - 1;
@@ -78,17 +71,17 @@ function Square(num){
 }
 
 
-const GameController = (function (p1Name = "Player 1", p2Name = "Player 2"){
+const Game = (() => {
     const board = GameBoard();
     const choices = [[], []];
 
     const players = [
         {
-            name: p1Name,
+            name: "Player 1",
             token: 'X'
         },
         {
-            name: p2Name,
+            name: "Player 2",
             token: 'O'
         }
     ]
@@ -107,13 +100,13 @@ const GameController = (function (p1Name = "Player 1", p2Name = "Player 2"){
         
         if(getActivePlayer().token == 'X'){
             choices[0].push(square);
-            if(choices[0].length >= 3 && winPatterns.some((pattern)=>pattern.every((item)=>choices[0].includes(item)))){
+            if(winPatterns.some((pattern)=>pattern.every((item)=>choices[0].includes(item)))){
                 return true
             }
         }
         else{
             choices[1].push(square);
-            if(choices[1].length >= 3 && winPatterns.some((pattern)=>pattern.every((item)=>choices[1].includes(item)))){
+            if(winPatterns.some((pattern)=>pattern.every((item)=>choices[1].includes(item)))){
                 return true
             }
         }
