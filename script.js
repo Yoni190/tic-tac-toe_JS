@@ -142,15 +142,46 @@ const Game = (() => {
         }
         switchPlayerTurn();
         printNewRound();
+        displayController.displaySquare();
     }
-
     printNewRound();
+   
 
     return{
         playRound, getActivePlayer
     }
 })();
 
-const displayController = () => {
+const displayController = (() => {
+    const squares = [];
+    const container = document.querySelector(".container");
 
-}
+    for(let i = 0; i<9; i++){
+        const square = document.createElement('div');
+        square.classList.add('square', `num-${i+1}`);
+        container.appendChild(square);
+    }
+
+
+    const displaySquare = () => {
+        const board = GameBoard.getBoard();
+
+        for(let i = 0; i<3; i++){
+            for(let j = 0; j<3; j++){
+                if(typeof board[i][j].getValue() == 'string'){
+                    if(i == 0){
+                        var selectedSquare = document.querySelector(`.num-${j+1}`);
+                    }
+                    else if(i == 1){
+                        var selectedSquare = document.querySelector(`.num-${j+4}`);
+                    }
+                    else{
+                        var selectedSquare = document.querySelector(`.num-${j+7}`);
+                    }
+                    selectedSquare.innerHTML = board[i][j].getValue();
+                }
+            }
+        }
+    }
+    return {displaySquare};
+})();

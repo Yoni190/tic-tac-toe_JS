@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.square {
+    border: 2px solid black;
+    height: 10vh;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 10%;
+}
+
