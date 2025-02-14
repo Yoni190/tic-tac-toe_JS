@@ -1,4 +1,4 @@
-function GameBoard(){
+const GameBoard = (() => {
     const board = [];
     const rows = 3;
     const columns = 3;
@@ -57,7 +57,7 @@ function GameBoard(){
 
     return {getBoard, selectSquare, printBoard};
     
-}
+})();
 
 
 function Square(num){
@@ -72,7 +72,6 @@ function Square(num){
 
 
 const Game = (() => {
-    const board = GameBoard();
     const choices = [[], []];
 
     const players = [
@@ -116,7 +115,6 @@ const Game = (() => {
                 return true
             }
         }
-        console.log(choices)
     }
 
     const checkTie = () => {
@@ -126,13 +124,13 @@ const Game = (() => {
     }
 
     const printNewRound = () => {
-        board.printBoard();
+        GameBoard.printBoard();
         console.log(`${getActivePlayer().name}'s turn`);
     }
 
     const playRound = (square) => {
         console.log(`Putting ${getActivePlayer().name}'s mark...`);
-        board.selectSquare(square, getActivePlayer().token);
+        GameBoard.selectSquare(square, getActivePlayer().token);
 
         if(checkWin(square)){
             console.log(`The winner is ${getActivePlayer().name}`)
@@ -152,3 +150,7 @@ const Game = (() => {
         playRound, getActivePlayer
     }
 })();
+
+const displayController = () => {
+
+}
