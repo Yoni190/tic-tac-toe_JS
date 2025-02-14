@@ -71,6 +71,49 @@ function Square(num){
 }
 
 
+const displayController = (() => {
+    const container = document.querySelector(".container");
+
+    for(let i = 0; i<9; i++){
+        const square = document.createElement('div');
+        square.classList.add('square', `num-${i+1}`);
+        container.appendChild(square);
+    }
+
+    const squares = document.querySelectorAll('.square');
+    squares.forEach((square)=>{
+        square.addEventListener('click', ()=>{
+            const selected = square.className.slice(-1);
+            Game.playRound(selected);
+        })
+    })
+
+
+    const displaySquare = () => {
+        const board = GameBoard.getBoard();
+
+        for(let i = 0; i<3; i++){
+            for(let j = 0; j<3; j++){
+                if(typeof board[i][j].getValue() == 'string'){
+                    if(i == 0){
+                        var selectedSquare = document.querySelector(`.num-${j+1}`);
+                    }
+                    else if(i == 1){
+                        var selectedSquare = document.querySelector(`.num-${j+4}`);
+                    }
+                    else{
+                        var selectedSquare = document.querySelector(`.num-${j+7}`);
+                    }
+                    selectedSquare.innerHTML = board[i][j].getValue();
+                }
+            }
+        }
+    }
+    return {displaySquare};
+})();
+
+
+
 const Game = (() => {
     const choices = [[], []];
 
@@ -133,11 +176,11 @@ const Game = (() => {
         GameBoard.selectSquare(square, getActivePlayer().token);
 
         if(checkWin(square)){
-            console.log(`The winner is ${getActivePlayer().name}`)
+            alert(`The winner is ${getActivePlayer().name}`)
             return;
         }
         else if(checkTie()){
-            console.log("It's a tie!")
+            alert("It's a tie!")
             return;
         }
         switchPlayerTurn();
@@ -145,6 +188,7 @@ const Game = (() => {
         displayController.displaySquare();
     }
     printNewRound();
+    
    
 
     return{
@@ -152,36 +196,3 @@ const Game = (() => {
     }
 })();
 
-const displayController = (() => {
-    const squares = [];
-    const container = document.querySelector(".container");
-
-    for(let i = 0; i<9; i++){
-        const square = document.createElement('div');
-        square.classList.add('square', `num-${i+1}`);
-        container.appendChild(square);
-    }
-
-
-    const displaySquare = () => {
-        const board = GameBoard.getBoard();
-
-        for(let i = 0; i<3; i++){
-            for(let j = 0; j<3; j++){
-                if(typeof board[i][j].getValue() == 'string'){
-                    if(i == 0){
-                        var selectedSquare = document.querySelector(`.num-${j+1}`);
-                    }
-                    else if(i == 1){
-                        var selectedSquare = document.querySelector(`.num-${j+4}`);
-                    }
-                    else{
-                        var selectedSquare = document.querySelector(`.num-${j+7}`);
-                    }
-                    selectedSquare.innerHTML = board[i][j].getValue();
-                }
-            }
-        }
-    }
-    return {displaySquare};
-})();
