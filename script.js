@@ -84,7 +84,7 @@ const displayController = (() => {
     squares.forEach((square)=>{
         square.addEventListener('click', ()=>{
             const selected = square.className.slice(-1);
-            Game.playRound(selected);
+            Game.playRound(parseInt(selected));
         })
     })
 
