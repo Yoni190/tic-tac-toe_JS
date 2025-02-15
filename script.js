@@ -60,7 +60,7 @@ const GameBoard = () => {
     
 };
 
-let board = GameBoard();
+
 
 
 function Square(num){
@@ -130,7 +130,6 @@ const displayController = (() => {
     return {displaySquare};
 })();
 
-const scores = [0, 0];
 
 const Game = (name1 = "Player 1", name2 = "Player 2") => {
     const choices = [[], []];
@@ -225,6 +224,7 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
         else if(checkTie()){
             document.querySelector('.display-paragraph').innerHTML = "It's a tie!";
             playButton.removeEventListener('click', startGame);
+            displayController.displaySquare();
             return;
         }
         switchPlayerTurn();
@@ -242,6 +242,11 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
     }
 };
 
+
+const scores = [0, 0];
+
+let board = GameBoard();
+
 const startGame = () => {
     const input1 = document.querySelector('#p1Name');
         const input2 = document.querySelector('#p2Name');
@@ -251,9 +256,11 @@ const startGame = () => {
         }
         game = Game();
 }
+
 let game = '';
 const playButton = document.querySelector('.playButton');
 const resetButton = document.querySelector('.resetButton');
+
 playButton.addEventListener('click', startGame);
 
 resetButton.addEventListener('click', () => {
