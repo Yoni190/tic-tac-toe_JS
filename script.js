@@ -169,6 +169,7 @@ const Game = (() => {
     const printNewRound = () => {
         GameBoard.printBoard();
         console.log(`${getActivePlayer().name}'s turn`);
+        document.querySelector('.display-paragraph').innerHTML = `${getActivePlayer().name}'s turn`;
     }
 
     const playRound = (square) => {
@@ -176,11 +177,11 @@ const Game = (() => {
         GameBoard.selectSquare(square, getActivePlayer().token);
 
         if(checkWin(square)){
-            alert(`The winner is ${getActivePlayer().name}`)
+            document.querySelector('.display-paragraph').innerHTML = `The winner is ${getActivePlayer().name}`;
             return;
         }
         else if(checkTie()){
-            alert("It's a tie!")
+            document.querySelector('.display-paragraph').innerHTML = "It's a tie!";
             return;
         }
         switchPlayerTurn();
