@@ -125,10 +125,12 @@ const displayController = (() => {
     return {displaySquare};
 })();
 
-
+const scores = [0, 0];
 
 const Game = (name1 = "Player 1", name2 = "Player 2") => {
     const choices = [[], []];
+
+    
 
 
     const players = [
@@ -185,6 +187,16 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
         console.log(`${getActivePlayer().name}'s turn`);
         document.querySelector('.display-paragraph').innerHTML = `${getActivePlayer().name}'s turn`;
     }
+
+    const updateScoreBoard = () => {
+        const player1 = players[0].name;
+        const player2 = players[1].name;
+
+        document.querySelector('.label1').innerHTML = player1;
+        document.querySelector('.score1').innerHTML = scores[0]
+        document.querySelector('.label2').innerHTML = player2;
+        document.querySelector('.score2').innerHTML = scores[1];
+    }
     
 
     const playRound = (square) => {
@@ -194,6 +206,14 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
         if(checkWin(square)){
             document.querySelector('.display-paragraph').innerHTML = `The winner is ${getActivePlayer().name}`;
             playButton.removeEventListener('click', startGame);
+
+            if(getActivePlayer().token == 'X'){
+                scores[0]++;
+            }
+            else{
+                scores[1]++;
+            }
+            updateScoreBoard();
             return;
         }
         else if(checkTie()){
@@ -206,6 +226,7 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
         displayController.displaySquare();
     }
     printNewRound();
+    updateScoreBoard();
     displayController.displaySquare();
     
    
@@ -231,7 +252,7 @@ playButton.addEventListener('click', startGame);
 
 resetButton.addEventListener('click', () => {
     board = GameBoard();
-    game = Game();
+    startGame();
 })
 
 
