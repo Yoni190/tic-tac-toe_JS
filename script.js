@@ -84,7 +84,7 @@ const displayController = (() => {
     squares.forEach((square)=>{
         square.addEventListener('click', ()=>{
             const selected = square.className.slice(-1);
-            Game.playRound(parseInt(selected));
+            game.playRound(parseInt(selected));
         })
     })
 
@@ -114,16 +114,17 @@ const displayController = (() => {
 
 
 
-const Game = (() => {
+const Game = (name1 = "Player 1", name2 = "Player 2") => {
     const choices = [[], []];
+
 
     const players = [
         {
-            name: "Player 1",
+            name: name1,
             token: 'X'
         },
         {
-            name: "Player 2",
+            name: name2,
             token: 'O'
         }
     ]
@@ -195,5 +196,18 @@ const Game = (() => {
     return{
         playRound, getActivePlayer
     }
-})();
+};
+
+let game = '';
+const playButton = document.querySelector('.playButton');
+    playButton.addEventListener('click', ()=>{
+        const input1 = document.querySelector('#p1Name');
+        const input2 = document.querySelector('#p2Name');
+        if(input1.value.trim() !== "" && input2.value.trim() !== ""){
+            game = Game(input1.value, input2.value)
+            return;
+        }
+        game = Game();
+    })
+
 
