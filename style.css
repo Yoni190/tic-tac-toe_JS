@@ -15,7 +15,7 @@ header{
 
 main {
     display: grid;
-    grid-template-columns: 1fr 6fr;
+    grid-template-columns: 1fr 6fr 1fr;
 }
 
 form{
@@ -26,6 +26,12 @@ form{
     gap: 20px;
     font-size: 24px;
     padding: 15px;
+    height: 100vh;
+}
+
+.scoreboard{
+    height: 100vh;
+    font-size: 36px;
 }
 
 .display-paragraph{

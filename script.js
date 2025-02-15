@@ -130,8 +130,6 @@ const scores = [0, 0];
 const Game = (name1 = "Player 1", name2 = "Player 2") => {
     const choices = [[], []];
 
-    
-
 
     const players = [
         {
@@ -188,7 +186,9 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
         document.querySelector('.display-paragraph').innerHTML = `${getActivePlayer().name}'s turn`;
     }
 
-    const updateScoreBoard = () => {
+    const displayScoreBoard = () => {
+        const scoreboard = document.querySelector('.scoreboard');
+        scoreboard.style.border = "2px solid black";
         const player1 = players[0].name;
         const player2 = players[1].name;
 
@@ -213,7 +213,7 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
             else{
                 scores[1]++;
             }
-            updateScoreBoard();
+            displayScoreBoard();
             return;
         }
         else if(checkTie()){
@@ -226,7 +226,7 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
         displayController.displaySquare();
     }
     printNewRound();
-    updateScoreBoard();
+    displayScoreBoard();
     displayController.displaySquare();
     
    
