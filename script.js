@@ -84,6 +84,10 @@ const displayController = (() => {
     squares.forEach((square)=>{
         square.addEventListener('click', ()=>{
             const selected = square.className.slice(-1);
+            if(typeof game == 'string'){
+                document.querySelector('.display-paragraph').innerHTML = "Please press the play button";
+                return;
+            }
             game.playRound(parseInt(selected));
         })
     })
@@ -184,6 +188,7 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
         }
         else if(checkTie()){
             document.querySelector('.display-paragraph').innerHTML = "It's a tie!";
+            playButton.removeEventListener('click', startGame);
             return;
         }
         switchPlayerTurn();
