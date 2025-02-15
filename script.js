@@ -1,4 +1,4 @@
-const GameBoard = (() => {
+const GameBoard = () => {
     const board = [];
     const rows = 3;
     const columns = 3;
@@ -55,9 +55,12 @@ const GameBoard = (() => {
         console.log(boardWithValues);
     }
 
+
     return {getBoard, selectSquare, printBoard};
     
-})();
+};
+
+let board = GameBoard();
 
 
 function Square(num){
@@ -77,6 +80,7 @@ const displayController = (() => {
     for(let i = 0; i<9; i++){
         const square = document.createElement('div');
         square.classList.add('square', `num-${i+1}`);
+        square.innerHTML = "";
         container.appendChild(square);
     }
 
@@ -94,11 +98,16 @@ const displayController = (() => {
 
 
     const displaySquare = () => {
-        const board = GameBoard.getBoard();
+        const gameboard = board.getBoard();
+
+        const allSquares = document.querySelectorAll('.square')
+        allSquares.forEach((square)=>{
+            square.innerHTML = "";
+        });
 
         for(let i = 0; i<3; i++){
             for(let j = 0; j<3; j++){
-                if(typeof board[i][j].getValue() == 'string'){
+                if(typeof gameboard[i][j].getValue() == 'string'){
                     if(i == 0){
                         var selectedSquare = document.querySelector(`.num-${j+1}`);
                     }
@@ -108,7 +117,7 @@ const displayController = (() => {
                     else{
                         var selectedSquare = document.querySelector(`.num-${j+7}`);
                     }
-                    selectedSquare.innerHTML = board[i][j].getValue();
+                    selectedSquare.innerHTML = gameboard[i][j].getValue();
                 }
             }
         }
@@ -172,14 +181,15 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
     }
 
     const printNewRound = () => {
-        GameBoard.printBoard();
+        board.printBoard();
         console.log(`${getActivePlayer().name}'s turn`);
         document.querySelector('.display-paragraph').innerHTML = `${getActivePlayer().name}'s turn`;
     }
+    
 
     const playRound = (square) => {
         console.log(`Putting ${getActivePlayer().name}'s mark...`);
-        GameBoard.selectSquare(square, getActivePlayer().token);
+        board.selectSquare(square, getActivePlayer().token);
 
         if(checkWin(square)){
             document.querySelector('.display-paragraph').innerHTML = `The winner is ${getActivePlayer().name}`;
@@ -196,6 +206,7 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
         displayController.displaySquare();
     }
     printNewRound();
+    displayController.displaySquare();
     
    
 
@@ -215,6 +226,12 @@ const startGame = () => {
 }
 let game = '';
 const playButton = document.querySelector('.playButton');
+const resetButton = document.querySelector('.resetButton');
 playButton.addEventListener('click', startGame);
+
+resetButton.addEventListener('click', () => {
+    board = GameBoard();
+    game = Game();
+})
 
 
