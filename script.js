@@ -179,6 +179,7 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
 
         if(checkWin(square)){
             document.querySelector('.display-paragraph').innerHTML = `The winner is ${getActivePlayer().name}`;
+            playButton.removeEventListener('click', startGame);
             return;
         }
         else if(checkTie()){
@@ -198,16 +199,17 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
     }
 };
 
-let game = '';
-const playButton = document.querySelector('.playButton');
-    playButton.addEventListener('click', ()=>{
-        const input1 = document.querySelector('#p1Name');
+const startGame = () => {
+    const input1 = document.querySelector('#p1Name');
         const input2 = document.querySelector('#p2Name');
         if(input1.value.trim() !== "" && input2.value.trim() !== ""){
             game = Game(input1.value, input2.value)
             return;
         }
         game = Game();
-    })
+}
+let game = '';
+const playButton = document.querySelector('.playButton');
+playButton.addEventListener('click', startGame);
 
 
