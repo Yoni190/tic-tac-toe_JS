@@ -85,11 +85,16 @@ const displayController = (() => {
     }
 
     const squares = document.querySelectorAll('.square');
+    const displayParagraph = document.querySelector('.display-paragraph');
+
     squares.forEach((square)=>{
         square.addEventListener('click', ()=>{
             const selected = square.className.slice(-1);
             if(typeof game == 'string'){
-                document.querySelector('.display-paragraph').innerHTML = "Please press the play button";
+                displayParagraph.innerHTML = "Please press the play button";
+                return;
+            }
+            if(displayParagraph.innerHTML.slice(4, 10) == 'winner'){
                 return;
             }
             game.playRound(parseInt(selected));
@@ -214,6 +219,7 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
                 scores[1]++;
             }
             displayScoreBoard();
+            displayController.displaySquare();
             return;
         }
         else if(checkTie()){
