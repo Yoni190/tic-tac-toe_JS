@@ -28,25 +28,28 @@ const GameBoard = () => {
             const row = 0;
             const column = square - 1;
             if(board[row][column].getValue() == 'X' || board[row][column].getValue() == 'O'){
-                return;
+                return -1;
             }
             board[row][column].addMark(player);
+            return 1;
         }
         else if(square > 3 && square < 7){
             const row = 1;
             const column = square - 4;
             if(board[row][column].getValue() == 'X' || board[row][column].getValue() == 'O'){
-                return;
+                return -1;
             }
             board[row][column].addMark(player);
+            return 1;
         }
         else{
             const row = 2;
             const column = square - 7;
             if(board[row][column].getValue() == 'X' || board[row][column].getValue() == 'O'){
-                return;
+                return -1;
             }
             board[row][column].addMark(player);
+            return 1;
         }
     }
 
@@ -205,31 +208,34 @@ const Game = (name1 = "Player 1", name2 = "Player 2") => {
 
     const playRound = (square) => {
         console.log(`Putting ${getActivePlayer().name}'s mark...`);
-        board.selectSquare(square, getActivePlayer().token);
+        if(board.selectSquare(square, getActivePlayer().token) == 1){
+            
+        
 
-        if(checkWin(square)){
-            document.querySelector('.display-paragraph').innerHTML = `The winner is ${getActivePlayer().name}`;
-            playButton.removeEventListener('click', startGame);
+            if(checkWin(square)){
+                document.querySelector('.display-paragraph').innerHTML = `The winner is ${getActivePlayer().name}`;
+                playButton.removeEventListener('click', startGame);
 
-            if(getActivePlayer().token == 'X'){
-                scores[0]++;
+                if(getActivePlayer().token == 'X'){
+                    scores[0]++;
+                }
+                else{
+                    scores[1]++;
+                }
+                displayScoreBoard();
+                displayController.displaySquare();
+                return;
             }
-            else{
-                scores[1]++;
+            else if(checkTie()){
+                document.querySelector('.display-paragraph').innerHTML = "It's a tie!";
+                playButton.removeEventListener('click', startGame);
+                displayController.displaySquare();
+                return;
             }
-            displayScoreBoard();
+            switchPlayerTurn();
+            printNewRound();
             displayController.displaySquare();
-            return;
         }
-        else if(checkTie()){
-            document.querySelector('.display-paragraph').innerHTML = "It's a tie!";
-            playButton.removeEventListener('click', startGame);
-            displayController.displaySquare();
-            return;
-        }
-        switchPlayerTurn();
-        printNewRound();
-        displayController.displaySquare();
     }
     printNewRound();
     displayScoreBoard();
